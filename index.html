@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>George VIP | Analista</title>
+    <meta name="description" content="George VIP - Analista de trading. Dónde el análisis se convierte en ganancia.">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ═══════════ CINEMATIC BACKGROUND ═══════════ -->
+    <div class="bg-scene">
+
+        <!-- Deep ambient glows -->
+        <div class="glow glow-green-left"></div>
+        <div class="glow glow-blue-top"></div>
+        <div class="glow glow-blue-right"></div>
+        <div class="glow glow-blue-bottom"></div>
+
+        <!-- Left candlestick chart -->
+        <svg class="chart chart-left" viewBox="0 0 160 500" preserveAspectRatio="none">
+            <!-- wicks -->
+            <line x1="18" y1="310" x2="18" y2="420" stroke="#00ff66" stroke-width="1.2" opacity="0.25" />
+            <line x1="48" y1="260" x2="48" y2="390" stroke="#00ff66" stroke-width="1.2" opacity="0.3" />
+            <line x1="78" y1="190" x2="78" y2="330" stroke="#00ff66" stroke-width="1.2" opacity="0.35" />
+            <line x1="108" y1="130" x2="108" y2="270" stroke="#00ff66" stroke-width="1.2" opacity="0.4" />
+            <line x1="138" y1="70" x2="138" y2="210" stroke="#00ff66" stroke-width="1.2" opacity="0.5" />
+            <!-- bodies -->
+            <rect x="11" y="340" width="14" height="55" rx="2" fill="#00ff66" opacity="0.35" />
+            <rect x="41" y="285" width="14" height="70" rx="2" fill="#00ff66" opacity="0.40" />
+            <rect x="71" y="215" width="14" height="80" rx="2" fill="#00ff66" opacity="0.50" />
+            <rect x="101" y="155" width="14" height="85" rx="2" fill="#00ff66" opacity="0.60" />
+            <rect x="131" y="90" width="14" height="90" rx="2" fill="#00ff66" opacity="0.75" />
+        </svg>
+
+        <!-- Right area: line + candlesticks -->
+        <svg class="chart chart-right" viewBox="0 0 280 500" preserveAspectRatio="none">
+            <!-- main trend line -->
+            <defs>
+                <filter id="glow-blue">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <path d="M0,480 C40,460 80,380 130,290 S200,170 280,60" fill="none" stroke="#0088ff" stroke-width="2.5"
+                opacity="0.45" filter="url(#glow-blue)" />
+            <path d="M0,490 C50,475 100,400 150,310 S220,190 280,100" fill="none" stroke="#0088ff" stroke-width="1.2"
+                opacity="0.18" />
+            <!-- right candlesticks -->
+            <line x1="180" y1="200" x2="180" y2="320" stroke="#00aaff" stroke-width="1.2" opacity="0.25" />
+            <rect x="173" y="230" width="14" height="60" rx="2" fill="#00aaff" opacity="0.30" />
+            <line x1="220" y1="130" x2="220" y2="250" stroke="#00aaff" stroke-width="1.2" opacity="0.30" />
+            <rect x="213" y="155" width="14" height="70" rx="2" fill="#00aaff" opacity="0.35" />
+            <line x1="260" y1="55" x2="260" y2="175" stroke="#00aaff" stroke-width="1.2" opacity="0.40" />
+            <rect x="253" y="80" width="14" height="75" rx="2" fill="#00aaff" opacity="0.42" />
+        </svg>
+
+        <!-- Grid -->
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="app">
+
+        <!-- Header -->
+        <header class="top-bar">
+            <div class="badge"><span class="pulse"></span>FIJAS</div>
+            <div class="top-bar-right">
+                <div class="badge"><span class="pulse"></span>DISPONIBLE</div>
+                <button class="icon-pill"><i class="fa-solid fa-arrow-trend-up"></i></button>
+            </div>
+        </header>
+
+        <!-- Profile -->
+        <section class="profile">
+            <div class="avatar-wrap">
+                <div class="avatar-ring-outer"></div>
+                <div class="avatar-ring-inner"></div>
+                <img src="avatar1.jpg" alt="George VIP" class="avatar-img">
+                <div class="avatar-badge"><i class="fa-solid fa-arrow-trend-up"></i></div>
+            </div>
+            <h1 class="name">GEORGE <span class="green">VIP</span></h1>
+            <div class="separator">
+                <span class="sep-line left"></span>
+                <span class="sep-text">ANALISTA</span>
+                <span class="sep-line right"></span>
+            </div>
+            <p class="tagline">Soy un <span class="green">apostador real</span> y apuesto <span class="green">dinero
+                    real</span>, no como el 99% de las lacras que se hacen llamar tipsters.</p>
+        </section>
+
+        <!-- Social Links -->
+        <section class="links">
+            <a href="https://t.me/+WYAotZ-Fwis5ZmMx" id="btn-telegram" class="card card-blue" target="_blank"
+                rel="noopener noreferrer">
+                <i class="fa-brands fa-telegram card-bg-icon"></i>
+                <div class="card-icon-wrap telegram-icon"><i class="fa-brands fa-telegram"></i></div>
+                <div class="card-text">
+                    <h3>TELEGRAM</h3>
+                    <p>Únete al mejor canal de apuestas en telegram</p>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <a href="https://www.instagram.com/georgevip__" id="btn-instagram" class="card card-purple" target="_blank"
+                rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram card-bg-icon"></i>
+                <div class="card-icon-wrap instagram-icon"><i class="fa-brands fa-instagram"></i></div>
+                <div class="card-text">
+                    <h3>INSTAGRAM</h3>
+                    <p>Mira mis resultados diarios</p>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+
+            <a href="https://www.tiktok.com/@georgevip_69?_r=1&_t=ZS-95vQFMJ3RdU" id="btn-tiktok" class="card card-cyan"
+                target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-tiktok card-bg-icon"></i>
+                <div class="card-icon-wrap tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                <div class="card-text">
+                    <h3>TIKTOK</h3>
+                    <p>Mi tiktok</p>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </a>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stat">
+                <i class="fa-solid fa-trophy"></i>
+                <div class="stat-val"><span class="counter" data-target="5">0</span>+</div>
+                <div class="stat-lbl">AÑOS OPERANDO</div>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-chart-line"></i>
+                <div class="stat-val"><span class="counter" data-target="85">0</span>%</div>
+                <div class="stat-lbl">WIN RATE</div>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-users"></i>
+                <div class="stat-val"><span class="counter" data-target="20">0</span>K+</div>
+                <div class="stat-lbl">COMUNIDAD</div>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-bullseye"></i>
+                <div class="stat-val"><span class="counter" data-target="99">0</span>%</div>
+                <div class="stat-lbl">RENTABILIDAD</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="foot">
+            <div class="motto">
+                <span>ÚNETE</span>
+                <span class="dot-sep">•</span>
+                <span class="green">COPIA MIS APUESTAS</span>
+                <span class="dot-sep">•</span>
+                <span>GANA DINERO</span>
+            </div>
+            <div class="wave-bar">
+                <svg width="44" height="22" viewBox="0 0 44 22">
+                    <rect x="0" y="9" width="3" height="4" rx="1.5" fill="#00ff66" />
+                    <rect x="5" y="7" width="3" height="8" rx="1.5" fill="#00ff66" />
+                    <rect x="10" y="5" width="3" height="12" rx="1.5" fill="#00ff66" />
+                    <rect x="15" y="8" width="3" height="6" rx="1.5" fill="#00ff66" />
+                    <rect x="20" y="2" width="3" height="18" rx="1.5" fill="#00ff66" />
+                    <rect x="25" y="0" width="3" height="22" rx="1.5" fill="#00ff66" />
+                    <rect x="30" y="3" width="3" height="16" rx="1.5" fill="#00ff66" />
+                    <rect x="35" y="6" width="3" height="10" rx="1.5" fill="#00ff66" />
+                    <rect x="40" y="9" width="3" height="4" rx="1.5" fill="#00ff66" />
+                </svg>
+            </div>
+            <div class="socials">
+                <a href="#" id="soc-email" class="soc-btn"><i class="fa-regular fa-envelope"></i></a>
+                <a href="#" id="soc-yt" class="soc-btn"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" id="soc-tw" class="soc-btn"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+            <p class="copy">© 2024 George VIP • Todos los derechos reservados</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Animación de contadores
+        const counters = document.querySelectorAll('.counter');
+        const duration = 2000; // Duración total en milisegundos (2 segundos)
+
+        const startCounters = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    let startTime = null;
+
+                    const updateCount = (timestamp) => {
+                        if (!startTime) startTime = timestamp;
+                        const progress = timestamp - startTime;
+                        const percentage = Math.min(progress / duration, 1);
+
+                        // Cálculo del valor actual basado en el tiempo
+                        const currentCount = Math.floor(percentage * target);
+                        counter.innerText = currentCount;
+
+                        if (percentage < 1) {
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    requestAnimationFrame(updateCount);
+                    observer.unobserve(counter);
+                }
+            });
+        };
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver(startCounters, observerOptions);
+        counters.forEach(counter => observer.observe(counter));
+    </script>
+</body>
+
+</html>
