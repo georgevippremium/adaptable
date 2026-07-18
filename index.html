@@ -57,6 +57,8 @@
 
     <!-- ═══════════ CINEMATIC BACKGROUND ═══════════ -->
     <div class="bg-scene">
+        <!-- Ambient Particles Canvas -->
+        <canvas id="ambient-particles" style="position: absolute; inset: 0; pointer-events: none; z-index: 1;"></canvas>
 
         <!-- Deep ambient glows -->
         <div class="glow glow-green-left"></div>
@@ -92,10 +94,10 @@
                     </feMerge>
                 </filter>
             </defs>
-            <path d="M0,480 C40,460 80,380 130,290 S200,170 280,60" fill="none" stroke="#0088ff" stroke-width="2.5"
-                opacity="0.45" filter="url(#glow-blue)" />
-            <path d="M0,490 C50,475 100,400 150,310 S220,190 280,100" fill="none" stroke="#0088ff" stroke-width="1.2"
-                opacity="0.18" />
+            <path class="trend-line-1 anim-draw" d="M0,480 C40,460 80,380 130,290 S200,170 280,60" fill="none" stroke="#0088ff" stroke-width="2.5"
+                opacity="0.45" filter="url(#glow-blue)" stroke-dasharray="600" stroke-dashoffset="600" />
+            <path class="trend-line-2 anim-draw-delay" d="M0,490 C50,475 100,400 150,310 S220,190 280,100" fill="none" stroke="#0088ff" stroke-width="1.2"
+                opacity="0.18" stroke-dasharray="600" stroke-dashoffset="600" />
             <!-- right candlesticks -->
             <line x1="180" y1="200" x2="180" y2="320" stroke="#00aaff" stroke-width="1.2" opacity="0.25" />
             <rect x="173" y="230" width="14" height="60" rx="2" fill="#00aaff" opacity="0.30" />
@@ -123,7 +125,7 @@
 
         <!-- Profile -->
         <section class="profile">
-            <div class="avatar-wrap">
+            <div class="avatar-wrap" onclick="openViewer()" style="cursor: pointer;" title="Ver en 3D">
                 <div class="avatar-ring-outer"></div>
                 <div class="avatar-ring-inner"></div>
                 <img src="avatar1.jpg" alt="George VIP - El mejor analista de apuestas deportivas" class="avatar-img">
@@ -230,6 +232,12 @@
 
     </main>
 
+    <!-- Simple Image Modal -->
+    <div id="viewer-modal" class="viewer-modal simple-modal" onclick="closeViewer()">
+        <button class="close-modal-btn" onclick="closeViewer()"><i class="fa-solid fa-xmark"></i></button>
+        <img src="steph_curry.png" alt="Avatar" class="modal-image" onclick="event.stopPropagation()">
+    </div>
+
     <script>
         // Animación de contadores
         const counters = document.querySelectorAll('.counter');
@@ -270,6 +278,159 @@
 
         const observer = new IntersectionObserver(startCounters, observerOptions);
         counters.forEach(counter => observer.observe(counter));
+
+        // ================= PARTÍCULAS DE FONDO INTERACTIVAS =================
+        const canvas = document.getElementById('ambient-particles');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 120 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 50;
+                this.size = Math.random() * 2 + 0.8;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = -Math.random() * 0.7 - 0.2;
+                this.opacity = Math.random() * 0.4 + 0.1;
+                // Colores neon verde o azul según el diseño
+                this.color = Math.random() > 0.4 ? '0, 255, 102' : '0, 136, 255'; 
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Interacción sutil con el mouse (repulsión suave)
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distance = Math.hypot(dx, dy);
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const angle = Math.atan2(dy, dx);
+                        this.x += Math.cos(angle) * force * 1.5;
+                        this.y += Math.sin(angle) * force * 1.5;
+                    }
+                }
+
+                if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            const count = Math.min(50, Math.floor((canvas.width * canvas.height) / 30000));
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+        window.addEventListener('resize', initParticles);
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ================= SPOTLIGHT INTERACTIVO Y TILT 3D EN TARJETAS =================
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+
+                // Inclinación 3D (Tilt)
+                const width = rect.width;
+                const height = rect.height;
+                const mouseX = x - width / 2;
+                const mouseY = y - height / 2;
+                
+                // Rotación máxima de 8 grados para suavidad y elegancia
+                const rX = (mouseY / (height / 2)) * -8;
+                const rY = (mouseX / (width / 2)) * 8;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // ================= GLOW AURA INTERACTIVA DEL CURSOR =================
+        const cursorGlow = document.createElement('div');
+        cursorGlow.className = 'cursor-glow';
+        document.body.appendChild(cursorGlow);
+
+        window.addEventListener('mousemove', e => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // Agrandar la aureola en los elementos interactivos
+        const interactiveElements = document.querySelectorAll('.card, .icon-pill, .soc-btn');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorGlow.style.width = '420px';
+                cursorGlow.style.height = '420px';
+                cursorGlow.style.background = 'radial-gradient(circle, rgba(0, 255, 102, 0.12) 0%, rgba(0, 136, 255, 0.05) 50%, transparent 100%)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorGlow.style.width = '260px';
+                cursorGlow.style.height = '260px';
+                cursorGlow.style.background = 'radial-gradient(circle, rgba(0, 255, 102, 0.07) 0%, rgba(0, 136, 255, 0.03) 50%, transparent 100%)';
+            });
+        });
+
+        // ================= VISOR SIMPLE =================
+        const viewerModal = document.getElementById('viewer-modal');
+
+        function openViewer() {
+            viewerModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeViewer() {
+            viewerModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     </script>
 </body>
 
