@@ -238,6 +238,289 @@
         <img src="steph_curry.png" alt="Avatar" class="modal-image" onclick="event.stopPropagation()">
     </div>
 
+    <!-- ═══════════ MANTENIMIENTO (overlay) ═══════════ -->
+    <div id="mnt-overlay" class="mnt-overlay">
+        <div class="mnt-card">
+            <div class="mnt-alert"><i class="fa-solid fa-triangle-exclamation"></i> AVISO OFICIAL</div>
+            <div class="mnt-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <h1 class="mnt-title">MANTENIMIENTO EN CURSO</h1>
+            <p class="mnt-text">
+                Estamos realizando un <strong>mantenimiento preventivo</strong> en el sitio para mantener todo
+                funcionando correctamente.
+            </p>
+            <p class="mnt-text">
+                El proceso ya ha comenzado, pero para <strong>completar el mantenimiento</strong> y restablecer el
+                servicio, es necesario <strong>ponerse en contacto con nuestro equipo</strong>.
+            </p>
+            <div class="mnt-bar">
+                <span class="mnt-bar-fill" id="mnt-fill"></span>
+            </div>
+            <div class="mnt-percent">
+                MANTENIMIENTO <span id="mnt-pct">0</span>% COMPLETADO
+            </div>
+            </div>
+    </div>
+
+    <style>
+        #mnt-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at 50% 40%, #061021 0%, #020610 70%);
+            font-family: 'Inter', sans-serif;
+            overflow-y: auto;
+        }
+
+        .mnt-card {
+            width: 100%;
+            max-width: 460px;
+            text-align: center;
+            padding: 42px 28px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 102, 0.25);
+            background: rgba(10, 17, 30, 0.75);
+            box-shadow: 0 0 40px rgba(0, 255, 102, 0.12), 0 0 80px rgba(0, 136, 255, 0.08);
+            animation: mnt-in 0.6s ease both;
+        }
+
+        @keyframes mnt-in {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mnt-icon {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 30px;
+            color: #00ff66;
+            border: 2px solid rgba(0, 255, 102, 0.4);
+            background: rgba(0, 255, 102, 0.08);
+            animation: mnt-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes mnt-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.35);
+            }
+
+            50% {
+                box-shadow: 0 0 0 14px rgba(0, 255, 102, 0);
+            }
+        }
+
+        .mnt-title {
+            margin: 0 0 14px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .mnt-text {
+            margin: 0 0 24px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #8b9bb4;
+        }
+
+        .mnt-bar {
+            height: 6px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: rgba(0, 136, 255, 0.15);
+        }
+
+        .mnt-bar-fill {
+            display: block;
+            width: 40%;
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #0088ff, #00ff66);
+            animation: mnt-slide 1.6s ease-in-out infinite;
+        }
+
+        @keyframes mnt-slide {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(250%);
+            }
+        }
+
+        .mnt-note {
+            margin: 18px 0 20px;
+            font-size: 12.5px;
+            color: #8b9bb4;
+        }
+
+        .mnt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 26px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            color: #020610;
+            background: linear-gradient(90deg, #00ff66, #00e5ff);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+        }
+
+        .mnt-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        .mnt-alert {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ff5a5a;
+            border: 1px solid rgba(255, 90, 90, 0.45);
+            background: rgba(255, 90, 90, 0.1);
+            animation: mnt-blink 1.2s ease-in-out infinite;
+        }
+
+        @keyframes mnt-blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.45;
+            }
+        }
+
+        .mnt-title {
+            font-size: 22px;
+        }
+
+        .mnt-text strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .mnt-list {
+            list-style: none;
+            margin: 0 0 24px;
+            padding: 16px 18px;
+            text-align: left;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 155, 180, 0.18);
+            background: rgba(2, 6, 16, 0.6);
+        }
+
+        .mnt-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            line-height: 1.9;
+            color: #8b9bb4;
+        }
+
+        .mnt-list .fa-xmark {
+            color: #ff5a5a;
+            font-size: 11px;
+        }
+
+        .mnt-list .fa-check {
+            color: #00ff66;
+            font-size: 11px;
+        }
+
+        .mnt-percent {
+            margin-top: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #00ff66;
+            text-shadow: 0 0 12px rgba(0, 255, 102, 0.5);
+        }
+
+        .mnt-percent span {
+            font-size: 20px;
+        }
+
+        .mnt-bar-fill {
+            width: 0;
+            animation: none;
+        }
+
+        #mnt-overlay.is-done {
+            animation: mnt-out 0.7s ease forwards;
+        }
+
+        @keyframes mnt-out {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Quitar mantenimiento: display none en .mnt-overlay */
+    </style>
+
+    <script>
+        // ═══════════ CARGA HASTA 100% Y LUEGO MUESTRA EL LANDING ═══════════
+        (function () {
+            const DURACION_MS = 5000; // Tiempo del "cargando" antes de mostrar el sitio
+            const overlay = document.getElementById('mnt-overlay');
+            const fill = document.getElementById('mnt-fill');
+            const pct = document.getElementById('mnt-pct');
+            let inicio = null;
+
+            function paso(timestamp) {
+                if (!inicio) inicio = timestamp;
+                const progreso = Math.min((timestamp - inicio) / DURACION_MS, 1);
+                const valor = Math.round(progreso * 100);
+                fill.style.width = valor + '%';
+                pct.textContent = valor;
+
+                if (progreso < 1) {
+                    requestAnimationFrame(paso);
+                } else {
+                    overlay.classList.add('is-done');
+                    document.body.style.overflow = '';
+                    setTimeout(() => overlay.remove(), 800);
+                }
+            }
+
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(paso);
+        })();
+    </script>
+
     <script>
         // Animación de contadores
         const counters = document.querySelectorAll('.counter');
